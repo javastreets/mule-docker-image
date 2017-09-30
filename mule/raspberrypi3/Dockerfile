@@ -10,7 +10,6 @@ ENV JAVA_WRAPPER_VERSION=3.5.34
 ENV JAVA_WRAPPER=wrapper-linux-armhf-32-${JAVA_WRAPPER_VERSION}
 ENV TINI_SUBREAPER=
 
-RUN [ "cross-build-start" ]
 RUN apt-get update && \
     apt-get upgrade
 
@@ -42,8 +41,6 @@ RUN sudo adduser --disabled-password --gecos "" mule
 RUN chown mule:mule -R /opt/mule-standalone-3.8.1 && \
     chown mule:mule -R /opt/mule && \
     chmod u+x /opt/mule-standalone-${MULE_VERSION}/lib/boot/exec/wrapper-linux-armhf-32
-
-RUN [ "cross-build-end" ]
 
 # Define mount points.
 VOLUME ["${MULE_HOME}/logs", "${MULE_HOME}/conf", "${MULE_HOME}/apps", "${MULE_HOME}/domains"]
