@@ -10,10 +10,9 @@ ENV JAVA_WRAPPER_VERSION=3.5.34
 ENV JAVA_WRAPPER=wrapper-linux-armhf-32-${JAVA_WRAPPER_VERSION}
 ENV TINI_SUBREAPER=
 
-# SSL Cert for downloading mule zip
+RUN [ "cross-build-start" ]
 RUN apt-get update && \
     apt-get upgrade
-
 
 # For checksum, alpine linux needs two spaces between checksum and file name
 RUN cd ~ && wget https://repository-master.mulesoft.org/nexus/content/repositories/releases/org/mule/distributions/mule-standalone/3.8.1/mule-standalone-3.8.1.tar.gz && echo "db079c0fc01c534d443277cfe96ab252  mule-standalone-3.8.1.tar.gz" | md5sum -c
@@ -43,6 +42,8 @@ RUN sudo adduser --disabled-password --gecos "" mule
 RUN chown mule:mule -R /opt/mule-standalone-3.8.1 && \
     chown mule:mule -R /opt/mule && \
     chmod u+x /opt/mule-standalone-${MULE_VERSION}/lib/boot/exec/wrapper-linux-armhf-32
+
+RUN [ "cross-build-end" ]
 
 # Define mount points.
 VOLUME ["${MULE_HOME}/logs", "${MULE_HOME}/conf", "${MULE_HOME}/apps", "${MULE_HOME}/domains"]
