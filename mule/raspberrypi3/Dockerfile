@@ -3,15 +3,17 @@ FROM resin/raspberrypi3-openjdk
 LABEL maintainer="https://manik.magar.me"
 
 # Define environment variables.
-ENV BUILD_DATE=10012017
+ENV BUILD_DATE=10032017
 ENV MULE_HOME=/opt/mule
 ENV MULE_VERSION=3.8.1
 ENV JAVA_WRAPPER_VERSION=3.5.34
 ENV JAVA_WRAPPER=wrapper-linux-armhf-32-${JAVA_WRAPPER_VERSION}
 ENV TINI_SUBREAPER=
+ENV TZ=America/New_York
 
 RUN apt-get update && \
-    apt-get upgrade
+    apt-get upgrade && \
+    rm -rf /var/lib/apt/lists
 
 RUN sudo adduser --disabled-password --gecos "" mule
 
@@ -19,6 +21,9 @@ RUN mkdir /tmp/mule-temp && \
     mkdir /opt/mule-standalone-${MULE_VERSION} && \
     ln -s /opt/mule-standalone-${MULE_VERSION} ${MULE_HOME} && \
     chown mule:mule -R /opt/mule*
+
+RUN echo ${TZ} > /etc/timezone && \
+    dpkg-reconfigure -f noninteractive tzdata
 
 COPY java_wrapper/libwrapper-linux-armhf-32.so /tmp/mule-temp/
 COPY java_wrapper/wrapper-3.5.34.jar /tmp/mule-temp/
