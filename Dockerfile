@@ -3,10 +3,10 @@ FROM javastreets/alpine-java:8_jdk_unlimited
 LABEL maintainer="https://manik.magar.me"
 
 # Define environment variables.
-ENV BUILD_DATE=02172018
+ENV BUILD_DATE=03252018
 ENV MULE_HOME=/opt/mule
-ENV MULE_VERSION=4.1.0
-ENV MULE_MD5=5ca7d9bba92c0b50ceef1daaf3bc7640
+ENV MULE_VERSION=4.1.1
+ENV MULE_MD5=09aa1448536c9273562eded1a9236609
 ENV TINI_SUBREAPER=
 ENV TZ=America/New_York
 
