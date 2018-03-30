@@ -51,7 +51,7 @@ do
     fi
 done
 
-# Save the startup directory
+# Save the startup directory 
 STARTUP_DIR=`pwd`
 
 # Change the current directory to the location of the script
@@ -74,7 +74,6 @@ fi
 # command
 MULE_HOME=`echo ${MULE_HOME} | sed -e 's/\/$//'`
 export MULE_HOME
-echo "MULE_HOME is set to ${MULE_HOME}"
 
 # If MULE_BASE is not set, set it to MULE_HOME
 if [ -z "$MULE_BASE" ] ; then
@@ -100,12 +99,6 @@ APP_LONG_NAME=${MULE_APP_LONG}
 WRAPPER_CMD="${MULE_HOME}/lib/boot/exec/wrapper"
 WRAPPER_CONF="${MULE_BASE}/conf/wrapper.conf"
 
-# add XML compatibility jars
-MULE_ENDORSED=-M-Djava.endorsed.dirs="${MULE_HOME}/lib/endorsed"
-
-# redirect JUL logs to log4j2
-JUL_LOG_MANAGER=-M-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager
-
 MULE_OPTS="wrapper.working.dir=\"$STARTUP_DIR\" \
            wrapper.app.parameter.1=$2 \
            wrapper.app.parameter.2=$3 \
@@ -128,7 +121,7 @@ JPDA_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
 PRIORITY=
 
 # Location of the pid file.
-PIDDIR="."
+PIDDIR="$MULE_BASE/."
 
 # If uncommented, causes the Wrapper to be shutdown using an anchor file.
 #  When launched with the 'start' command, it will also ignore all INT and
@@ -151,8 +144,6 @@ PIDDIR="."
 # description: Mule
 
 #-----------------------------------------------------------------------------
-
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MULE_HOME/lib/native/profiler
 
 # If the PIDDIR is relative, set its value relative to the full REALPATH to avoid problems if
 #  the working directory is later changed.
@@ -631,45 +622,56 @@ dump() {
 
 checkAdditionalJvmParams() {
     # The string passed to eval must handle spaces in paths correctly.
-    "$MULE_HOME/bin/launcher" \"$MULE_HOME/bin/additional.groovy\" \"$WRAPPER_CONF\" \"$JPDA_OPTS\" \"$MULE_ENDORSED\" \"$JUL_LOG_MANAGER\" $@
+    "$MULE_HOME/bin/launcher" \"$MULE_HOME/bin/additional.groovy\" \"$WRAPPER_CONF\" \"$JPDA_OPTS\" $@
     EXIT_STATUS=$?
 
-    if [ "$EXIT_STATUS" -ne "0" ] ; then
+    if [ "$EXIT_STATUS" -ne "0" ] ; then        
         exit $EXIT_STATUS
     fi
+}
+
+logMuleHome() {
+    echo "MULE_HOME is set to ${MULE_HOME}"
+    echo "MULE_BASE is set to ${MULE_BASE}"
 }
 
 case "$1" in
 
     'console')
+        logMuleHome
         checkUser touchlock $*
         checkAdditionalJvmParams $*
         console
         ;;
 
     'start')
+        logMuleHome
         checkUser touchlock $*
         checkAdditionalJvmParams $*
         start
         ;;
 
     'stop')
+        logMuleHome
         checkUser "" $*
         stopit
         ;;
 
     'restart')
+        logMuleHome
         checkUser touchlock $*
         stopit
         start
         ;;
 
     'status')
+        logMuleHome
         checkUser "" $*
         status
         ;;
 
     'dump')
+        logMuleHome
         checkUser "" $*
         dump
         ;;
