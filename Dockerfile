@@ -1,12 +1,12 @@
-FROM javastreets/alpine-java:8_jdk_unlimited
+FROM anapsix/alpine-java:8_jdk_nashorn
 
 LABEL maintainer="https://manik.magar.me"
 
 # Define environment variables.
-ENV BUILD_DATE=03252018
+ENV BUILD_DATE=06082019
 ENV MULE_HOME=/opt/mule
-ENV MULE_VERSION=4.1.1
-ENV MULE_MD5=09aa1448536c9273562eded1a9236609
+ENV MULE_VERSION=4.2.0
+ENV MULE_MD5=0f098b4bbc65d27cee9af59904ed6545
 ENV TINI_SUBREAPER=
 ENV TZ=America/New_York
 
