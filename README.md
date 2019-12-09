@@ -11,7 +11,7 @@ docker pull javastreets/mule
 ## Tags
 
 * `latest` : Points to the latest Mule Community edition version.
-* `ce420` : Mule Community Edition 4.2.0
+* `ce420` : Mule Community Edition 4.2.1
 * `raspberrypi3` : Latest Mule Community Runtime running on Raspberry Pi3
 * `raspberrypi3-ce381` : Mule Community Runtime 3.8.1 running on Raspberry Pi3
 
