@@ -3,12 +3,12 @@ FROM anapsix/alpine-java:8_jdk_nashorn
 LABEL maintainer="https://manik.magar.me"
 
 # Define environment variables.
-ENV BUILD_DATE=12082019
+ENV BUILD_DATE=06292021
 ENV MULE_HOME=/opt/mule
-ENV MULE_VERSION=4.2.1
-ENV MULE_MD5=de730172857f8030746c40d28e178446
+ENV MULE_VERSION=4.3.0-20210119
+ENV MULE_MD5=0859dad4a6dd992361d34837658e517d
 ENV TINI_SUBREAPER=
-ENV TZ=America/New_York
+ENV TZ=UTC
 
 # SSL Cert for downloading mule zip
 RUN apk --no-cache update && \
@@ -32,7 +32,7 @@ USER mule
 # For checksum, alpine linux needs two spaces between checksum and file name
 RUN cd ~ && wget https://repository-master.mulesoft.org/nexus/content/repositories/releases/org/mule/distributions/mule-standalone/${MULE_VERSION}/mule-standalone-${MULE_VERSION}.tar.gz && \
     echo "${MULE_MD5}  mule-standalone-${MULE_VERSION}.tar.gz" | md5sum -c && \
-    cd /opt && \
+    cd /opt && \ 
     tar xvzf ~/mule-standalone-${MULE_VERSION}.tar.gz && \
     rm ~/mule-standalone-${MULE_VERSION}.tar.gz
 
