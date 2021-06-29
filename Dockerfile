@@ -8,7 +8,7 @@ ENV MULE_HOME=/opt/mule
 ENV MULE_VERSION=4.3.0-20210119
 ENV MULE_MD5=0859dad4a6dd992361d34837658e517d
 ENV TINI_SUBREAPER=
-ENV TZ=America/New_York
+ENV TZ=UTC
 
 # SSL Cert for downloading mule zip
 RUN apk --no-cache update && \
