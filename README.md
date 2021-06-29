@@ -20,9 +20,9 @@ To expose an HTTP port 8081 for an application:
 
 `docker run -d --name mymule -P -v ~/mule/apps:/opt/mule/apps -v ~/mule/logs:/opt/mule/logs javastreets/mule`
 
-NOTE: Default timezone is set to UTC. To change it, set `TZ` environment variable while starting the container. Eg. `-e  TZ=America/New_York`.
+**NOTE:** Default timezone is set to UTC. To change it, set `TZ` environment variable while starting the container. Eg. `-e  TZ=America/New_York`.
 
-WARNING: Pre-430 image tags has America/New_York as default timezone.
+**!!WARNING!!** Pre-430 image tags has America/New_York as default timezone.
 
 **Mounted Volumes**
 
