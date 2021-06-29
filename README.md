@@ -1,7 +1,7 @@
 
 ## Specifications
 
-Jave Version: Oracle JDK 8
+Java Version: Oracle JDK 8
 Linux: Alpine
 
 ## Pulling image
