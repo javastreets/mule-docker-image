@@ -27,7 +27,7 @@ jobs:
           # generate Docker tags based on the following events/attributes
           flavor: |
             latest=auto
-            prefix="ce-"
+            prefix=ce,onlatest=false
           tags: |
             type=semver,pattern={{version}}
       - name: Login to Docker Hub
