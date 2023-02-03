@@ -1,17 +1,34 @@
 
 ## Specifications
 
+### 4.4.0-20221024-onwards or latest
+
+Java Version: Oracle JDK 11
+
+Linux: Ubuntu 22.04 Focal
+
+### Tags upto ce440
+
 Java Version: Oracle JDK 8
+
 Linux: Alpine
 
 ## Pulling image
 
+```shell
 docker pull javastreets/mule
+```
+
 
 ## Tags
 
 * `latest` : Points to the latest Mule Community edition version.
+* `CE-4.4.0-20221024` - Mule Community Edition 4.4.0-20221024
 * `ce440` : Mule Community Edition 4.4.0
+
+
+**No longer maintained:**
+Following Mule 3 images are no longer updated.
 * `raspberrypi3` : Latest Mule Community Runtime running on Raspberry Pi3
 * `raspberrypi3-ce381` : Mule Community Runtime 3.8.1 running on Raspberry Pi3
 
