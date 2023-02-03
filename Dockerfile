@@ -1,25 +1,19 @@
-FROM anapsix/alpine-java:8_jdk_nashorn
+FROM eclipse-temurin:11-jdk-focal
 
 LABEL maintainer="https://manik.magar.me"
 
 # Define environment variables.
 ENV BUILD_DATE=01182022
 ENV MULE_HOME=/opt/mule
-ENV MULE_VERSION=4.4.0
-ENV MULE_MD5=84f9f9bd23c71b248f295d894e41fb01
+ENV MULE_VERSION=4.4.0-20221024
+ENV MULE_MD5=51c486b12f01ef131a026b566b1c7591
 ENV TINI_SUBREAPER=
 ENV TZ=UTC
 
-# SSL Cert for downloading mule zip
-RUN apk --no-cache update && \
-    apk --no-cache upgrade && \
-    apk --no-cache add ca-certificates && \
-    update-ca-certificates && \
-    apk --no-cache add openssl && \
-    apk add --update tzdata && \
-    rm -rf /var/cache/apk/*
+RUN apt-get update && \
+    apt-get upgrade
 
-RUN adduser -D -g "" mule mule
+RUN adduser mule
 
 RUN mkdir /opt/mule-standalone-${MULE_VERSION} && \
     ln -s /opt/mule-standalone-${MULE_VERSION} ${MULE_HOME} && \
@@ -27,7 +21,7 @@ RUN mkdir /opt/mule-standalone-${MULE_VERSION} && \
 
 RUN echo ${TZ} > /etc/timezone
 
-USER mule
+#USER mule
 
 # For checksum, alpine linux needs two spaces between checksum and file name
 RUN cd ~ && wget https://repository-master.mulesoft.org/nexus/content/repositories/releases/org/mule/distributions/mule-standalone/${MULE_VERSION}/mule-standalone-${MULE_VERSION}.tar.gz && \
